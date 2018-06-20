@@ -2,9 +2,9 @@ package com.abohomol.sdk.network
 
 abstract class HeadersAwareRepository {
 
-    protected fun getHeaders(secret: String, endpoint: String, query: String): MutableMap<String, String> {
+    protected fun getHeaders(secret: String, path: String, query: String): MutableMap<String, String> {
         val nonce = System.currentTimeMillis()
-        val signature = Sha256Signature(endpoint, query, nonce, secret)
+        val signature = Sha256Signature(path, query, secret, nonce)
         val headers = mutableMapOf<String, String>()
         headers[NONCE_HEADER] = nonce.toString()
         headers[SIGNATURE_HEADER] = signature.value()

@@ -1,2 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.abohomol.sdk" />
+    package="com.abohomol.sdk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>

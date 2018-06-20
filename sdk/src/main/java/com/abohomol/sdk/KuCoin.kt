@@ -1,17 +1,21 @@
 package com.abohomol.sdk
 
-import com.abohomol.sdk.network.ApiKeyHeaderAttachInterceptor
-import com.abohomol.sdk.profile.ProfileService
-import com.abohomol.sdk.profile.UserProfileRetrofitRepository
+import com.abohomol.sdk.network.DefaultHeaderAttachInterceptor
+import com.abohomol.sdk.user.ProfileService
+import com.abohomol.sdk.user.UserProfileRetrofitRepository
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
+import okhttp3.logging.HttpLoggingInterceptor
 
 class KuCoin {
 
     companion object {
         fun create(key: String, secret: String): KuCoinService {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
             val client = OkHttpClient.Builder()
-                    .addInterceptor(ApiKeyHeaderAttachInterceptor(key))
+                    .addInterceptor(interceptor)
+                    .addInterceptor(DefaultHeaderAttachInterceptor(key))
                     .readTimeout(TIMEOUT_MS, TimeUnit.MILLISECONDS)
                     .writeTimeout(TIMEOUT_MS, TimeUnit.MILLISECONDS)
                     .build()

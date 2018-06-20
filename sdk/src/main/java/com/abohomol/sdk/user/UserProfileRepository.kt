@@ -1,4 +1,4 @@
-package com.abohomol.sdk.profile
+package com.abohomol.sdk.user
 
 import io.reactivex.Single
 

@@ -1,4 +1,4 @@
-package com.abohomol.sdk.profile
+package com.abohomol.sdk.user
 
 import io.reactivex.Single
 import okhttp3.OkHttpClient
@@ -12,7 +12,7 @@ import retrofit2.http.Url
 interface ProfileService {
 
     @GET
-    fun getUserProfile(@HeaderMap headers: Map<String, String>, @Url url: String): Single<UserProfile>
+    fun getUserProfile(@HeaderMap headers: Map<String, String>, @Url url: String): Single<ProfileResponse>
 
     companion object Factory {
 

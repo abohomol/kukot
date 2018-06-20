@@ -1,4 +1,4 @@
-package com.abohomol.sdk.profile
+package com.abohomol.sdk.user
 
 import com.abohomol.sdk.network.HeadersAwareRepository
 import io.reactivex.Single
@@ -13,6 +13,9 @@ class UserProfileRetrofitRepository(
     override fun getUserProfile(): Single<UserProfile> {
         val headers = getHeaders(secret, ENDPOINT, "")
         return profileService.getUserProfile(headers, ENDPOINT)
+                .map {
+                    it.profile
+                }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
