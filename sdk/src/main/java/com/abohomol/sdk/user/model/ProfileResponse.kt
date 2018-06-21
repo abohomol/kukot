@@ -1,8 +1,9 @@
-package com.abohomol.sdk.user
+package com.abohomol.sdk.user.model
 
+import com.abohomol.sdk.network.BaseResponse
 import com.google.gson.annotations.SerializedName
 
-data class ProfileResponse(@SerializedName("data") val profile: UserProfile)
+data class ProfileResponse(val data: UserProfile) : BaseResponse()
 
 data class UserProfile(
         val oid: String,

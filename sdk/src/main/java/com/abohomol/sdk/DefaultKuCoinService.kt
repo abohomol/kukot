@@ -1,12 +1,16 @@
 package com.abohomol.sdk
 
-import com.abohomol.sdk.user.UserProfile
+import com.abohomol.sdk.language.LanguageRetrofitRepository
 import com.abohomol.sdk.user.UserProfileRepository
-import io.reactivex.Single
 
 class DefaultKuCoinService(
-        private val userProfileRepository: UserProfileRepository
+        private val userProfileRepository: UserProfileRepository,
+        private val languageRepository: LanguageRetrofitRepository
 ) : KuCoinService {
 
-    override fun getUserProfile(): Single<UserProfile> = userProfileRepository.getUserProfile()
+    override fun getUserProfile() = userProfileRepository.getUserProfile()
+
+    override fun getLanguages() = languageRepository.getLanguages()
+
+    override fun changeLanguage(language: String) = languageRepository.changeLanguage(language)
 }
