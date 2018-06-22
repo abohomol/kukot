@@ -6,7 +6,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class UserProfileRetrofitRepository(
+class RetrofitUserProfileRepository(
         private val profileService: ProfileService,
         secret: String
 ) : BaseRepository(secret), UserProfileRepository {

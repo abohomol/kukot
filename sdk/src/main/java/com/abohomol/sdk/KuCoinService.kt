@@ -11,6 +11,7 @@ import com.abohomol.sdk.language.model.UserLanguage
 import com.abohomol.sdk.network.CoinCode
 import com.abohomol.sdk.network.CurrencyCode
 import com.abohomol.sdk.network.LanguageCode
+import com.abohomol.sdk.trading.model.*
 import com.abohomol.sdk.user.model.UserProfile
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -40,4 +41,30 @@ interface KuCoinService {
     fun getCoinBalance(coin: CoinCode): Single<CoinBalance>
 
     fun getCoinBalanceByPage(coin: CoinCode, page: Int, limit: Int): Single<List<CoinBalance>>
+
+    fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<String>
+
+    fun getActiveOrders(symbol: String, type: OrderType): Single<List<Order>>
+
+    fun cancelOrder(symbol: String, type: OrderType, orderOid: String): Completable
+
+    fun cancelAllOrders(symbol: String, type: OrderType): Completable
+
+    fun getMergedDealtOrders(type: OrderType,
+                             limit: Int,
+                             page: Int,
+                             since: Long,
+                             before: Long,
+                             symbol: String? = null): Single<List<MergedDealtOrder>>
+
+    fun getSpecificDealtOrders(symbol: String,
+                               type: OrderType,
+                               limit: Int,
+                               page: Int): Single<List<SpecificDealtOrder>>
+
+    fun getOrderDetails(orderOid: String,
+                        symbol: String,
+                        type: OrderType,
+                        limit: Int,
+                        page: Int): Single<OrderDetails>
 }

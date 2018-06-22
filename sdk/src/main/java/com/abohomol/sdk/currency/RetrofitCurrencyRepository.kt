@@ -10,7 +10,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CurrencyRetrofitRepository(
+class RetrofitCurrencyRepository(
         private val currencyService: CurrencyService,
         secret: String
 ) : BaseRepository(secret), CurrencyRepository {

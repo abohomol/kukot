@@ -1,17 +1,21 @@
 package com.abohomol.sdk.network
 
+import com.google.gson.annotations.SerializedName
+
 open class BaseResponse {
 
+    @SerializedName("_comment")
+    var comment: String = ""
     var code: String = ""
     var msg: String = ""
     var success: Boolean = false
     var timestamp: Long = 0
 }
 
-class NotSuccessfulRequestException(private val baseResponse: BaseResponse) : Exception() {
+class NotSuccessfulRequestException(private val base: BaseResponse) : Exception() {
 
     override val message: String?
-        get() = "Code: ${baseResponse.code}, timestamp: ${baseResponse.timestamp}, message: ${baseResponse.msg}"
+        get() = "Code: ${base.code}, timestamp: ${base.timestamp}, message: ${base.msg}, comment: ${base.comment}"
 }
 
 typealias CurrencyCode = String

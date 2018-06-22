@@ -7,7 +7,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LanguageRetrofitRepository(
+class RetrofitLanguageRepository(
         private val languageService: LanguageService,
         secret: String
 ) : BaseRepository(secret), LanguageRepository {

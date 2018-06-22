@@ -12,7 +12,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class AssetRetrofitRepository(
+class RetrofitAssetRepository(
         private val assetService: AssetService,
         secret: String
 ) : BaseRepository(secret), AssetRepository {
