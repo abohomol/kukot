@@ -1,6 +1,6 @@
 package com.abohomol.sdk.network
 
-abstract class HeadersAwareRepository(private val secret: String) {
+abstract class BaseRepository(private val secret: String) {
 
     protected fun getHeaders(query: String): MutableMap<String, String> {
         val nonce = System.currentTimeMillis()
@@ -12,6 +12,12 @@ abstract class HeadersAwareRepository(private val secret: String) {
     }
 
     abstract fun endpoint(): String
+
+    protected fun onResponse(response: BaseResponse) {
+        if (!response.success) {
+            throw NotSuccessfulRequestException(response)
+        }
+    }
 
     companion object {
         private const val NONCE_HEADER = "KC-API-NONCE"
