@@ -1,6 +1,7 @@
 package com.abohomol.sdk.language.model
 
 import com.abohomol.sdk.network.BaseResponse
+import com.abohomol.sdk.network.LanguageCode
 
 data class LanguagesResponse(private val data: List<List<Any>>) : BaseResponse() {
 
@@ -9,5 +10,5 @@ data class LanguagesResponse(private val data: List<List<Any>>) : BaseResponse()
     }
 }
 
-data class UserLanguage(val code: String, val name: String, val available: Boolean)
+data class UserLanguage(val code: LanguageCode, val name: String, val available: Boolean)
 

@@ -12,12 +12,14 @@ class UserProfileRetrofitRepository(
 ) : BaseRepository(secret), UserProfileRepository {
 
     override fun getUserProfile(): Single<UserProfile> {
-        return profileService.getUserProfile(getHeaders(""), endpoint())
+        return profileService.getUserProfile(getHeaders(ENDPOINT, ""), ENDPOINT)
                 .doOnSuccess { onResponse(it) }
                 .map { it.data }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun endpoint() = "/v1/user/info"
+    companion object {
+        private const val ENDPOINT = "/v1/user/info"
+    }
 }

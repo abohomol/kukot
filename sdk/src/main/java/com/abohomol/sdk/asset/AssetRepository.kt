@@ -1,35 +1,17 @@
-package com.abohomol.sdk
+package com.abohomol.sdk.asset
 
 import com.abohomol.sdk.asset.model.CoinBalance
 import com.abohomol.sdk.asset.model.DepositAddress
 import com.abohomol.sdk.asset.model.Record
 import com.abohomol.sdk.asset.model.RecordStatus
 import com.abohomol.sdk.asset.model.RecordType
-import com.abohomol.sdk.currency.model.Currency
-import com.abohomol.sdk.currency.model.ExchangeRate
-import com.abohomol.sdk.language.model.UserLanguage
 import com.abohomol.sdk.network.CoinCode
-import com.abohomol.sdk.network.CurrencyCode
-import com.abohomol.sdk.network.LanguageCode
-import com.abohomol.sdk.user.model.UserProfile
 import io.reactivex.Completable
 import io.reactivex.Single
 
-interface KuCoinService {
+interface AssetRepository {
 
-    fun getUserProfile(): Single<UserProfile>
-
-    fun getLanguages(): Single<List<UserLanguage>>
-
-    fun changeLanguage(language: LanguageCode): Completable
-
-    fun getCurrencies(): Single<List<Currency>>
-
-    fun changeDefaultCurrency(currency: CurrencyCode): Completable
-
-    fun getExchangeRates(vararg coins: CoinCode): Single<List<ExchangeRate>>
-
-    fun getCoinDepositAddress(coin: CoinCode): Single<DepositAddress>
+    fun getDepositAddress(coin: CoinCode): Single<DepositAddress>
 
     fun withdrawalApply(coin: CoinCode, amount: Double, withdrawalAddress: String): Completable
 

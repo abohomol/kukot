@@ -13,3 +13,9 @@ class NotSuccessfulRequestException(private val baseResponse: BaseResponse) : Ex
     override val message: String?
         get() = "Code: ${baseResponse.code}, timestamp: ${baseResponse.timestamp}, message: ${baseResponse.msg}"
 }
+
+typealias CurrencyCode = String
+
+typealias CoinCode = String
+
+typealias LanguageCode = String

@@ -1,5 +1,7 @@
 package com.abohomol.sdk
 
+import com.abohomol.sdk.asset.AssetRetrofitRepository
+import com.abohomol.sdk.asset.AssetService
 import com.abohomol.sdk.currency.CurrencyRetrofitRepository
 import com.abohomol.sdk.currency.CurrencyService
 import com.abohomol.sdk.language.LanguageRetrofitRepository
@@ -26,7 +28,12 @@ class KuCoin {
             val languageRepository = LanguageRetrofitRepository(languageService, secret)
             val currencyService = serviceBuilder.build(CurrencyService::class.java)
             val currencyRepository = CurrencyRetrofitRepository(currencyService, secret)
-            return DefaultKuCoinService(userProfileRepository, languageRepository, currencyRepository)
+            val assetService = serviceBuilder.build(AssetService::class.java)
+            val assetRepository = AssetRetrofitRepository(assetService, secret)
+            return DefaultKuCoinService(userProfileRepository,
+                                        languageRepository,
+                                        currencyRepository,
+                                        assetRepository)
         }
     }
 

@@ -1,9 +1,9 @@
 package com.abohomol.sdk.currency
 
-import com.abohomol.sdk.currency.model.CoinCode
 import com.abohomol.sdk.currency.model.Currency
-import com.abohomol.sdk.currency.model.CurrencyCode
 import com.abohomol.sdk.currency.model.ExchangeRate
+import com.abohomol.sdk.network.CoinCode
+import com.abohomol.sdk.network.CurrencyCode
 import io.reactivex.Completable
 import io.reactivex.Single
 

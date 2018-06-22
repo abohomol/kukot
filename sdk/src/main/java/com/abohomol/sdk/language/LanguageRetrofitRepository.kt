@@ -21,13 +21,15 @@ class LanguageRetrofitRepository(
     }
 
     override fun changeLanguage(languageCode: String): Completable {
-        val headers = getHeaders("lang=$languageCode")
-        return languageService.changeLanguage(headers, endpoint(), languageCode)
+        val headers = getHeaders(ENDPOINT, "lang=$languageCode")
+        return languageService.changeLanguage(headers, ENDPOINT, languageCode)
                 .doOnSuccess { onResponse(it) }
                 .toCompletable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun endpoint() = "/v1/user/change-lang"
+    companion object {
+        private const val ENDPOINT = "/v1/user/change-lang"
+    }
 }

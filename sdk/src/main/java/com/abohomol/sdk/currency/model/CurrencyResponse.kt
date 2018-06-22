@@ -1,6 +1,8 @@
 package com.abohomol.sdk.currency.model
 
 import com.abohomol.sdk.network.BaseResponse
+import com.abohomol.sdk.network.CoinCode
+import com.abohomol.sdk.network.CurrencyCode
 
 data class CurrencyResponse(val data: Data) : BaseResponse() {
 
@@ -8,10 +10,6 @@ data class CurrencyResponse(val data: Data) : BaseResponse() {
 
     fun exchangeRates() = data.rates.map { entry -> ExchangeRate(entry.key, entry.value) }
 }
-
-typealias CurrencyCode = String
-
-typealias CoinCode = String
 
 data class Data(val currencies: List<List<Any>>, val rates: Map<CoinCode, Map<CurrencyCode, Double>>)
 
