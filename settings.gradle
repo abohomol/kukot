@@ -1,1 +1,1 @@
-include ':sample', ':sdk'
+include ':sample', ':kukot'

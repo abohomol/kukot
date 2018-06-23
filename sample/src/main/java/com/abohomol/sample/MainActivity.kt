@@ -3,8 +3,8 @@ package com.abohomol.sample
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.abohomol.sdk.KuCoin
-import com.abohomol.sdk.trading.model.OrderType
+import com.abohomol.kukot.KuCoin
+import com.abohomol.kukot.trading.model.OrderType
 import kotlinx.android.synthetic.main.activity_main.helloWorld
 
 class MainActivity : AppCompatActivity() {
