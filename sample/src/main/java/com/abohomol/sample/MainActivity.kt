@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val service = KuCoin.create(API_KEY, SECRET)
         service.getActiveOrders("MOBI-BTC", OrderType.SELL)
                 .subscribe({
-                               Log.e("KUCOIN", "Success")
+                               Log.e("KUCOIN", "Success $it")
                            }, {
                                Log.e("KUCOIN", "Failure", it)
                            })

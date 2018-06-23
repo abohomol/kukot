@@ -19,6 +19,7 @@ class KuCoin {
 
     companion object {
 
+        @JvmStatic
         fun create(key: String, secret: String, host: String = PRODUCTION_HOST): KuCoinService {
             val headerInterceptor = DefaultHeaderAttachInterceptor(key)
             val interceptors = mutableListOf<Interceptor>(headerInterceptor)
