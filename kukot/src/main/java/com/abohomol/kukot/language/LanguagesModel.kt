@@ -1,4 +1,4 @@
-package com.abohomol.kukot.language.model
+package com.abohomol.kukot.language
 
 import com.abohomol.kukot.network.BaseResponse
 import com.abohomol.kukot.network.LanguageCode

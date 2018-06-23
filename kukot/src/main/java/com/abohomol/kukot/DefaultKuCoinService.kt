@@ -1,30 +1,30 @@
 package com.abohomol.kukot
 
-import com.abohomol.kukot.asset.AssetRepository
+import com.abohomol.kukot.asset.RetrofitAssetRepository
 import com.abohomol.kukot.asset.model.CoinBalance
 import com.abohomol.kukot.asset.model.Record
 import com.abohomol.kukot.asset.model.RecordStatus
 import com.abohomol.kukot.asset.model.RecordType
-import com.abohomol.kukot.currency.CurrencyRepository
-import com.abohomol.kukot.language.LanguageRepository
+import com.abohomol.kukot.currency.RetrofitCurrencyRepository
+import com.abohomol.kukot.language.RetrofitLanguageRepository
 import com.abohomol.kukot.market.RetrofitMarketRepository
 import com.abohomol.kukot.market.TradingSymbolsTick
 import com.abohomol.kukot.network.CoinCode
 import com.abohomol.kukot.network.CurrencyCode
 import com.abohomol.kukot.network.LanguageCode
 import com.abohomol.kukot.network.OrderId
-import com.abohomol.kukot.trading.TradingRepository
+import com.abohomol.kukot.trading.RetrofitTradingRepository
 import com.abohomol.kukot.trading.model.*
-import com.abohomol.kukot.user.UserProfileRepository
+import com.abohomol.kukot.user.RetrofitUserProfileRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
 class DefaultKuCoinService(
-        private val userProfileRepository: UserProfileRepository,
-        private val languageRepository: LanguageRepository,
-        private val currencyRepository: CurrencyRepository,
-        private val assetRepository: AssetRepository,
-        private val tradingRepository: TradingRepository,
+        private val userProfileRepository: RetrofitUserProfileRepository,
+        private val languageRepository: RetrofitLanguageRepository,
+        private val currencyRepository: RetrofitCurrencyRepository,
+        private val assetRepository: RetrofitAssetRepository,
+        private val tradingRepository: RetrofitTradingRepository,
         private val marketRepository: RetrofitMarketRepository
 ) : KuCoinService {
 

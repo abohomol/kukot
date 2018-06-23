@@ -1,6 +1,5 @@
 package com.abohomol.kukot.language
 
-import com.abohomol.kukot.language.model.UserLanguage
 import com.abohomol.kukot.network.BaseRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -10,9 +9,9 @@ import io.reactivex.schedulers.Schedulers
 class RetrofitLanguageRepository(
         private val languageService: LanguageService,
         secret: String
-) : BaseRepository(secret), LanguageRepository {
+) : BaseRepository(secret) {
 
-    override fun getLanguages(): Single<List<UserLanguage>> {
+    fun getLanguages(): Single<List<UserLanguage>> {
         return languageService.getLanguages()
                 .doOnSuccess { onResponse(it) }
                 .map { it.languages() }
@@ -20,7 +19,7 @@ class RetrofitLanguageRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun changeLanguage(languageCode: String): Completable {
+    fun changeLanguage(languageCode: String): Completable {
         val headers = getHeaders(ENDPOINT, "lang=$languageCode")
         return languageService.changeLanguage(headers, ENDPOINT, languageCode)
                 .doOnSuccess { onResponse(it) }

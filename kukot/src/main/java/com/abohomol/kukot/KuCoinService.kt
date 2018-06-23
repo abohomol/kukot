@@ -5,16 +5,16 @@ import com.abohomol.kukot.asset.model.DepositAddress
 import com.abohomol.kukot.asset.model.Record
 import com.abohomol.kukot.asset.model.RecordStatus
 import com.abohomol.kukot.asset.model.RecordType
-import com.abohomol.kukot.currency.model.Currency
-import com.abohomol.kukot.currency.model.ExchangeRate
-import com.abohomol.kukot.language.model.UserLanguage
+import com.abohomol.kukot.currency.Currency
+import com.abohomol.kukot.currency.ExchangeRate
+import com.abohomol.kukot.language.UserLanguage
 import com.abohomol.kukot.market.TradingSymbolsTick
 import com.abohomol.kukot.network.CoinCode
 import com.abohomol.kukot.network.CurrencyCode
 import com.abohomol.kukot.network.LanguageCode
 import com.abohomol.kukot.network.OrderId
 import com.abohomol.kukot.trading.model.*
-import com.abohomol.kukot.user.model.UserProfile
+import com.abohomol.kukot.user.UserProfile
 import io.reactivex.Completable
 import io.reactivex.Single
 

@@ -11,9 +11,9 @@ import io.reactivex.schedulers.Schedulers
 class RetrofitTradingRepository(
         private val tradingService: TradingService,
         secret: String
-) : BaseRepository(secret), TradingRepository {
+) : BaseRepository(secret) {
 
-    override fun createOrder(symbol: String,
+    fun createOrder(symbol: String,
                     type: OrderType,
                     price: Double,
                     amount: Double): Single<OrderId> {
@@ -33,7 +33,7 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getActiveOrders(symbol: String, type: OrderType): Single<List<Order>> {
+    fun getActiveOrders(symbol: String, type: OrderType): Single<List<Order>> {
         val endpoint = "/v1/order/active-map"
         val query = "symbol=$symbol&type=${type.name}"
         val headers = getHeaders(endpoint, query)
@@ -48,7 +48,7 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun cancelOrder(symbol: String, type: OrderType, orderOid: String): Completable {
+    fun cancelOrder(symbol: String, type: OrderType, orderOid: String): Completable {
         val endpoint = "/v1/cancel-order"
         val query = "orderOid=$orderOid&symbol=$symbol&type=${type.name}"
         val headers = getHeaders(endpoint, query)
@@ -64,7 +64,7 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun cancelAllOrders(symbol: String, type: OrderType): Completable {
+    fun cancelAllOrders(symbol: String, type: OrderType): Completable {
         val endpoint = "/v1/order/cancel-all"
         val query = "symbol=$symbol&type=${type.name}"
         val headers = getHeaders(endpoint, query)
@@ -79,7 +79,7 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getMergedDealtOrders(symbol: String?,
+    fun getMergedDealtOrders(symbol: String?,
                              type: OrderType,
                              limit: Int,
                              page: Int,
@@ -104,7 +104,7 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getSpecificDealtOrders(symbol: String,
+    fun getSpecificDealtOrders(symbol: String,
                                type: OrderType,
                                limit: Int,
                                page: Int): Single<List<SpecificDealtOrder>> {
@@ -124,7 +124,7 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getOrderDetails(orderOid: String,
+    fun getOrderDetails(orderOid: String,
                         symbol: String,
                         type: OrderType,
                         limit: Int,

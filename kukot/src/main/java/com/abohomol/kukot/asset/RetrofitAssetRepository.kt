@@ -15,9 +15,9 @@ import io.reactivex.schedulers.Schedulers
 class RetrofitAssetRepository(
         private val assetService: AssetService,
         secret: String
-) : BaseRepository(secret), AssetRepository {
+) : BaseRepository(secret) {
 
-    override fun getDepositAddress(coin: CoinCode): Single<DepositAddress> {
+    fun getDepositAddress(coin: CoinCode): Single<DepositAddress> {
         val endpoint = "/v1/account/$coin/wallet/address"
         val headers = getHeaders(endpoint, "")
         return assetService.getDepositAddress(headers, endpoint)
@@ -27,7 +27,7 @@ class RetrofitAssetRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun withdrawalApply(coin: CoinCode,
+    fun withdrawalApply(coin: CoinCode,
                                  amount: Double,
                                  withdrawalAddress: String): Completable {
         val endpoint = "/v1/account/$coin/withdraw/apply"
@@ -45,7 +45,7 @@ class RetrofitAssetRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun cancelWithdrawal(coin: CoinCode, transactionId: String): Completable {
+    fun cancelWithdrawal(coin: CoinCode, transactionId: String): Completable {
         val endpoint = "/v1/account/$coin/withdraw/cancel"
         val headers = getHeaders(endpoint, "txOid=$transactionId")
         return assetService.cancelWithdrawal(headers, endpoint, transactionId)
@@ -55,7 +55,7 @@ class RetrofitAssetRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getDepositAndWithdrawalRecords(coin: CoinCode,
+    fun getDepositAndWithdrawalRecords(coin: CoinCode,
                                                 type: RecordType,
                                                 status: RecordStatus,
                                                 page: Int): Single<List<Record>> {
@@ -74,7 +74,7 @@ class RetrofitAssetRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getCoinBalance(coin: CoinCode): Single<CoinBalance> {
+    fun getCoinBalance(coin: CoinCode): Single<CoinBalance> {
         val endpoint = "/v1/account/$coin/balance"
         val headers = getHeaders(endpoint, "")
         return assetService.getCoinBalance(headers, endpoint)
@@ -84,7 +84,7 @@ class RetrofitAssetRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getCoinBalanceByPage(coin: CoinCode, page: Int, limit: Int): Single<List<CoinBalance>> {
+    fun getCoinBalanceByPage(coin: CoinCode, page: Int, limit: Int): Single<List<CoinBalance>> {
         val endpoint = "/v1/account/balances"
         val headers = getHeaders(endpoint, "limit=$limit&page=$page")
         val queries = mapOf(

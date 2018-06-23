@@ -1,6 +1,5 @@
 package com.abohomol.kukot.currency
 
-import com.abohomol.kukot.currency.model.CurrencyResponse
 import com.abohomol.kukot.network.BaseResponse
 import io.reactivex.Single
 import retrofit2.http.GET

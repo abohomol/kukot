@@ -1,7 +1,6 @@
 package com.abohomol.kukot.user
 
 import com.abohomol.kukot.network.BaseRepository
-import com.abohomol.kukot.user.model.UserProfile
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -9,9 +8,9 @@ import io.reactivex.schedulers.Schedulers
 class RetrofitUserProfileRepository(
         private val profileService: ProfileService,
         secret: String
-) : BaseRepository(secret), UserProfileRepository {
+) : BaseRepository(secret) {
 
-    override fun getUserProfile(): Single<UserProfile> {
+    fun getUserProfile(): Single<UserProfile> {
         return profileService.getUserProfile(getHeaders(ENDPOINT, ""), ENDPOINT)
                 .doOnSuccess { onResponse(it) }
                 .map { it.data }

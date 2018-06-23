@@ -1,4 +1,4 @@
-package com.abohomol.kukot.currency.model
+package com.abohomol.kukot.currency
 
 import com.abohomol.kukot.network.BaseResponse
 import com.abohomol.kukot.network.CoinCode

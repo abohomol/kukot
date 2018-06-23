@@ -1,6 +1,5 @@
 package com.abohomol.kukot.language
 
-import com.abohomol.kukot.language.model.LanguagesResponse
 import com.abohomol.kukot.network.BaseResponse
 import io.reactivex.Single
 import retrofit2.http.GET

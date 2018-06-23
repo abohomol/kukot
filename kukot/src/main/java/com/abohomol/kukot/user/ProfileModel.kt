@@ -1,4 +1,4 @@
-package com.abohomol.kukot.user.model
+package com.abohomol.kukot.user
 
 import com.abohomol.kukot.network.BaseResponse
 import com.google.gson.annotations.SerializedName
