@@ -1,6 +1,7 @@
 package com.abohomol.kukot.trading
 
 import com.abohomol.kukot.network.BaseRepository
+import com.abohomol.kukot.network.OrderId
 import com.abohomol.kukot.trading.model.*
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -15,7 +16,7 @@ class RetrofitTradingRepository(
     override fun createOrder(symbol: String,
                     type: OrderType,
                     price: Double,
-                    amount: Double): Single<String> {
+                    amount: Double): Single<OrderId> {
         val endpoint = "/v1/order"
         val query = "amount=$amount&price=$price&symbol=$symbol&type=${type.name}"
         val headers = getHeaders(endpoint, query)

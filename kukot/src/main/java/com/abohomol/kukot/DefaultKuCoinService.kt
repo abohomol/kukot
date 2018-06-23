@@ -7,9 +7,12 @@ import com.abohomol.kukot.asset.model.RecordStatus
 import com.abohomol.kukot.asset.model.RecordType
 import com.abohomol.kukot.currency.CurrencyRepository
 import com.abohomol.kukot.language.LanguageRepository
+import com.abohomol.kukot.market.RetrofitMarketRepository
+import com.abohomol.kukot.market.TradingSymbolsTick
 import com.abohomol.kukot.network.CoinCode
 import com.abohomol.kukot.network.CurrencyCode
 import com.abohomol.kukot.network.LanguageCode
+import com.abohomol.kukot.network.OrderId
 import com.abohomol.kukot.trading.TradingRepository
 import com.abohomol.kukot.trading.model.*
 import com.abohomol.kukot.user.UserProfileRepository
@@ -21,7 +24,8 @@ class DefaultKuCoinService(
         private val languageRepository: LanguageRepository,
         private val currencyRepository: CurrencyRepository,
         private val assetRepository: AssetRepository,
-        private val tradingRepository: TradingRepository
+        private val tradingRepository: TradingRepository,
+        private val marketRepository: RetrofitMarketRepository
 ) : KuCoinService {
 
     override fun getUserProfile() = userProfileRepository.getUserProfile()
@@ -63,7 +67,7 @@ class DefaultKuCoinService(
         return assetRepository.getCoinBalanceByPage(coin, page, limit)
     }
 
-    override fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<String> {
+    override fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<OrderId> {
         return tradingRepository.createOrder(symbol, type, price, amount)
     }
 
@@ -90,4 +94,24 @@ class DefaultKuCoinService(
     override fun getOrderDetails(orderOid: String, symbol: String, type: OrderType, limit: Int, page: Int): Single<OrderDetails> {
         return tradingRepository.getOrderDetails(orderOid, symbol, type, limit, page)
     }
+
+    override fun getTradingFavouriteSymbolsTick(market: String, symbol: String): Single<List<TradingSymbolsTick>> {
+        return marketRepository.getTradingFavouriteSymbolsTick(market, symbol)
+    }
+
+    override fun getTradingStickSymbolsTick(market: String, symbol: String): Single<List<TradingSymbolsTick>> {
+        return marketRepository.getTradingStickSymbolsTick(market, symbol)
+    }
+
+    override fun getStickSymbols() = marketRepository.getStickSymbols()
+
+    override fun getFavouriteSymbols() = marketRepository.getFavouriteSymbols()
+
+    override fun addFavouriteSymbol(symbol: String) = marketRepository.addFavouriteSymbol(symbol)
+
+    override fun deleteFavouriteSymbol(symbol: String) = marketRepository.deleteFavouriteSymbol(symbol)
+
+    override fun addStickSymbol(symbol: String) = marketRepository.addStickSymbol(symbol)
+
+    override fun deleteStickSymbol(symbol: String) = marketRepository.deleteStickSymbol(symbol)
 }

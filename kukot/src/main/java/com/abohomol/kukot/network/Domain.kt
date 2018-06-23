@@ -23,3 +23,5 @@ typealias CurrencyCode = String
 typealias CoinCode = String
 
 typealias LanguageCode = String
+
+typealias OrderId = String

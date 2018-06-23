@@ -6,6 +6,8 @@ import com.abohomol.kukot.currency.RetrofitCurrencyRepository
 import com.abohomol.kukot.currency.CurrencyService
 import com.abohomol.kukot.language.RetrofitLanguageRepository
 import com.abohomol.kukot.language.LanguageService
+import com.abohomol.kukot.market.MarketService
+import com.abohomol.kukot.market.RetrofitMarketRepository
 import com.abohomol.kukot.network.DefaultHeaderAttachInterceptor
 import com.abohomol.kukot.network.RestServiceBuilder
 import com.abohomol.kukot.trading.RetrofitTradingRepository
@@ -45,11 +47,15 @@ class KuCoin {
             val tradingService = serviceBuilder.build(TradingService::class.java)
             val tradingRepository = RetrofitTradingRepository(tradingService, secret)
 
+            val marketService = serviceBuilder.build(MarketService::class.java)
+            val marketRepository = RetrofitMarketRepository(marketService, secret)
+
             return DefaultKuCoinService(userProfileRepository,
                     languageRepository,
                     currencyRepository,
                     assetRepository,
-                    tradingRepository)
+                    tradingRepository,
+                    marketRepository)
         }
 
     }

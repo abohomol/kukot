@@ -1,12 +1,13 @@
 package com.abohomol.kukot.trading
 
+import com.abohomol.kukot.network.OrderId
 import com.abohomol.kukot.trading.model.*
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface TradingRepository {
 
-    fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<String>
+    fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<OrderId>
 
     fun getActiveOrders(symbol: String, type: OrderType): Single<List<Order>>
 

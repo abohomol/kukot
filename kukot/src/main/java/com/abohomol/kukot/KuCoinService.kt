@@ -8,9 +8,11 @@ import com.abohomol.kukot.asset.model.RecordType
 import com.abohomol.kukot.currency.model.Currency
 import com.abohomol.kukot.currency.model.ExchangeRate
 import com.abohomol.kukot.language.model.UserLanguage
+import com.abohomol.kukot.market.TradingSymbolsTick
 import com.abohomol.kukot.network.CoinCode
 import com.abohomol.kukot.network.CurrencyCode
 import com.abohomol.kukot.network.LanguageCode
+import com.abohomol.kukot.network.OrderId
 import com.abohomol.kukot.trading.model.*
 import com.abohomol.kukot.user.model.UserProfile
 import io.reactivex.Completable
@@ -42,7 +44,7 @@ interface KuCoinService {
 
     fun getCoinBalanceByPage(coin: CoinCode, page: Int, limit: Int): Single<List<CoinBalance>>
 
-    fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<String>
+    fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<OrderId>
 
     fun getActiveOrders(symbol: String, type: OrderType): Single<List<Order>>
 
@@ -67,4 +69,20 @@ interface KuCoinService {
                         type: OrderType,
                         limit: Int,
                         page: Int): Single<OrderDetails>
+
+    fun getTradingFavouriteSymbolsTick(market: String, symbol: String): Single<List<TradingSymbolsTick>>
+
+    fun getTradingStickSymbolsTick(market: String, symbol: String): Single<List<TradingSymbolsTick>>
+
+    fun getStickSymbols(): Single<List<String>>
+
+    fun getFavouriteSymbols(): Single<List<String>>
+
+    fun addFavouriteSymbol(symbol: String): Completable
+
+    fun deleteFavouriteSymbol(symbol: String): Completable
+
+    fun addStickSymbol(symbol: String): Completable
+
+    fun deleteStickSymbol(symbol: String): Completable
 }
