@@ -62,6 +62,10 @@ Since Kukot uses [RxJava2](https://github.com/ReactiveX/RxJava) as a part of its
 
 Kukot is heavily relying on interfaces so you can easily test it by mocking the whole `KuCoinService` or `KuCoinInfoService` facades with Mockito or implementing interfaces on your own and passing them around your application code without any hassle.
 
+## Sample application
+
+There is a [sample application](/sample) for Android in the current repository which can give a basic idea of how to use SDK. By clicking on the button it simply requests user profile from the KuCoin exchange, retrieves email address and shows it as a Toast message. In order for sample application to work you need to replace API Key and Secret in the MainActivity.kt.
+
 ## Download
 
 Step 1. Add the JitPack repository to your build file
