@@ -36,15 +36,13 @@ class DefaultKuCoinService(
 
     override fun getCurrencies() = currencyRepository.getCurrencies()
 
-    override fun changeDefaultCurrency(currency: CurrencyCode) = currencyRepository.changeCurrency(currency)
+    override fun changeCurrency(currency: CurrencyCode) = currencyRepository.changeCurrency(currency)
 
     override fun getExchangeRates(vararg coins: CoinCode) = currencyRepository.getExchangeRates(coins.asList())
 
     override fun getCoinDepositAddress(coin: CoinCode) = assetRepository.getDepositAddress(coin)
 
-    override fun withdrawalApply(coin: CoinCode,
-                                 amount: Double,
-                                 withdrawalAddress: String): Completable {
+    override fun withdrawCoin(coin: CoinCode, amount: Double, withdrawalAddress: String): Completable {
         return assetRepository.withdraw(coin, amount, withdrawalAddress)
     }
 
