@@ -80,17 +80,13 @@ class RetrofitTradingRepository(
 
     fun getMergedDealtOrders(symbol: String?,
                              type: OrderType,
-                             limit: Int,
-                             page: Int,
                              since: Long,
                              before: Long): Single<List<MergedDealtOrder>> {
         val endpoint = "/v1/order/dealt"
         val symbolQuery = if (symbol == null) "" else "&symbol=$symbol"
-        val query = "before=$before&limit=$limit&page=$page&since=$since$symbolQuery&type=${type.name}"
+        val query = "before=$before&since=$since$symbolQuery&type=${type.name}"
         val queries = mutableMapOf(
                 "before" to before.toString(),
-                "limit" to limit.toString(),
-                "page" to page.toString(),
                 "since" to since.toString(),
                 "type" to type.name
         )
@@ -103,15 +99,10 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getSpecificDealtOrders(symbol: String,
-                               type: OrderType,
-                               limit: Int,
-                               page: Int): Single<List<SpecificDealtOrder>> {
+    fun getSpecificDealtOrders(symbol: String, type: OrderType): Single<List<SpecificDealtOrder>> {
         val endpoint = "/v1/deal-orders"
-        val query = "limit=$limit&page=$page&symbol=$symbol&type=${type.name}"
+        val query = "symbol=$symbol&type=${type.name}"
         val queries = mutableMapOf(
-                "limit" to limit.toString(),
-                "page" to page.toString(),
                 "symbol" to symbol,
                 "type" to type.name
         )
@@ -123,17 +114,11 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getOrderDetails(orderOid: String,
-                        symbol: String,
-                        type: OrderType,
-                        limit: Int,
-                        page: Int): Single<OrderDetails> {
+    fun getOrderDetails(orderOid: String, symbol: String, type: OrderType): Single<OrderDetails> {
         val endpoint = "/v1/order/detail"
-        val query = "limit=$limit&orderOid=$orderOid&page=$page&symbol=$symbol&type=${type.name}"
+        val query = "orderOid=$orderOid&symbol=$symbol&type=${type.name}"
         val queries = mutableMapOf(
-                "limit" to limit.toString(),
                 "orderOid" to orderOid,
-                "page" to page.toString(),
                 "symbol" to symbol,
                 "type" to type.name
         )

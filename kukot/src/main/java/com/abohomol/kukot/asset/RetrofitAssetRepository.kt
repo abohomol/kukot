@@ -57,13 +57,11 @@ class RetrofitAssetRepository(
 
     fun getDepositAndWithdrawalRecords(coin: CoinCode,
                                        type: RecordType,
-                                       status: RecordStatus,
-                                       page: Int): Single<List<Record>> {
+                                       status: RecordStatus): Single<List<Record>> {
         val endpoint = "/v1/account/$coin/wallet/records"
-        val query = "page=$page&status=${status.name}&type=${type.name}"
+        val query = "status=${status.name}&type=${type.name}"
         val headers = getHeaders(endpoint, query)
         val queries = mapOf(
-                "page" to page.toString(),
                 "status" to status.name,
                 "type" to type.name
         )

@@ -13,7 +13,7 @@ abstract class BaseRepository(private val secret: String) {
 
     protected fun onResponse(response: BaseResponse) {
         if (!response.success) {
-            throw NotSuccessfulRequestException(response)
+            throw KuCoinRequestError(response)
         }
     }
 

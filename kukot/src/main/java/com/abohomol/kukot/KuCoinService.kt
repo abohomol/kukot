@@ -37,13 +37,13 @@ interface KuCoinService {
 
     fun cancelWithdrawal(coin: CoinCode, transactionId: String): Completable
 
-    fun getDepositRecords(coin: CoinCode, status: RecordStatus, page: Int = 0): Single<List<Record>>
+    fun getDepositRecords(coin: CoinCode, status: RecordStatus): Single<List<Record>>
 
-    fun getWithdrawalRecords(coin: CoinCode, status: RecordStatus, page: Int = 0): Single<List<Record>>
+    fun getWithdrawalRecords(coin: CoinCode, status: RecordStatus): Single<List<Record>>
 
     fun getCoinBalance(coin: CoinCode): Single<CoinBalance>
 
-    fun getCoinBalances(page: Int, limit: Int): Single<List<CoinBalance>>
+    fun getAllCoinBalances(page: Int, limit: Int): Single<List<CoinBalance>>
 
     fun createSellOrder(symbol: String, price: Double, amount: Double): Single<OrderId>
 
@@ -64,22 +64,13 @@ interface KuCoinService {
     fun cancelAllSellOrders(symbol: String): Completable
 
     fun getDealtOrders(type: OrderType,
-                       limit: Int,
-                       page: Int,
                        since: Long,
                        before: Long,
                        symbol: String? = null): Single<List<MergedDealtOrder>>
 
-    fun getDealtOrders(symbol: String,
-                       type: OrderType,
-                       limit: Int,
-                       page: Int): Single<List<SpecificDealtOrder>>
+    fun getDealtOrders(symbol: String, type: OrderType): Single<List<SpecificDealtOrder>>
 
-    fun getOrderDetails(orderOid: String,
-                        symbol: String,
-                        type: OrderType,
-                        limit: Int,
-                        page: Int): Single<OrderDetails>
+    fun getOrderDetails(orderOid: String, symbol: String, type: OrderType): Single<OrderDetails>
 
     fun getTradingFavouriteSymbolsTick(market: String, symbol: String): Single<List<TradingSymbolsTick>>
 

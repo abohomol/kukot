@@ -52,21 +52,17 @@ class DefaultKuCoinService(
         return assetRepository.cancelWithdrawal(coin, transactionId)
     }
 
-    override fun getDepositRecords(coin: CoinCode,
-                                   status: RecordStatus,
-                                   page: Int): Single<List<Record>> {
-        return assetRepository.getDepositAndWithdrawalRecords(coin, RecordType.DEPOSIT, status, page)
+    override fun getDepositRecords(coin: CoinCode, status: RecordStatus): Single<List<Record>> {
+        return assetRepository.getDepositAndWithdrawalRecords(coin, RecordType.DEPOSIT, status)
     }
 
-    override fun getWithdrawalRecords(coin: CoinCode,
-                                   status: RecordStatus,
-                                   page: Int): Single<List<Record>> {
-        return assetRepository.getDepositAndWithdrawalRecords(coin, RecordType.WITHDRAW, status, page)
+    override fun getWithdrawalRecords(coin: CoinCode, status: RecordStatus): Single<List<Record>> {
+        return assetRepository.getDepositAndWithdrawalRecords(coin, RecordType.WITHDRAW, status)
     }
 
     override fun getCoinBalance(coin: CoinCode) = assetRepository.getCoinBalance(coin)
 
-    override fun getCoinBalances(page: Int, limit: Int): Single<List<CoinBalance>> {
+    override fun getAllCoinBalances(page: Int, limit: Int): Single<List<CoinBalance>> {
         return assetRepository.getCoinBalanceByPage(page, limit)
     }
 
@@ -104,16 +100,16 @@ class DefaultKuCoinService(
         return tradingRepository.cancelAllOrders(symbol, OrderType.SELL)
     }
 
-    override fun getDealtOrders(type: OrderType, limit: Int, page: Int, since: Long, before: Long, symbol: String?): Single<List<MergedDealtOrder>> {
-        return tradingRepository.getMergedDealtOrders(symbol, type, limit, page, since, before)
+    override fun getDealtOrders(type: OrderType, since: Long, before: Long, symbol: String?): Single<List<MergedDealtOrder>> {
+        return tradingRepository.getMergedDealtOrders(symbol, type, since, before)
     }
 
-    override fun getDealtOrders(symbol: String, type: OrderType, limit: Int, page: Int): Single<List<SpecificDealtOrder>> {
-        return tradingRepository.getSpecificDealtOrders(symbol, type, limit, page)
+    override fun getDealtOrders(symbol: String, type: OrderType): Single<List<SpecificDealtOrder>> {
+        return tradingRepository.getSpecificDealtOrders(symbol, type)
     }
 
-    override fun getOrderDetails(orderOid: String, symbol: String, type: OrderType, limit: Int, page: Int): Single<OrderDetails> {
-        return tradingRepository.getOrderDetails(orderOid, symbol, type, limit, page)
+    override fun getOrderDetails(orderOid: String, symbol: String, type: OrderType): Single<OrderDetails> {
+        return tradingRepository.getOrderDetails(orderOid, symbol, type)
     }
 
     override fun getTradingFavouriteSymbolsTick(market: String, symbol: String): Single<List<TradingSymbolsTick>> {

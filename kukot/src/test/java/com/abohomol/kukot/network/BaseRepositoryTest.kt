@@ -32,7 +32,7 @@ class BaseRepositoryTest {
         Assert.assertTrue(headers.containsKey("KC-API-SIGNATURE"))
     }
 
-    @Test(expected = NotSuccessfulRequestException::class)
+    @Test(expected = KuCoinRequestError::class)
     fun shouldThrowExceptionOnUnsuccessfulResponse() {
         val tested = object : BaseRepository("secret") {
             fun onResponseProxy(response: BaseResponse) = onResponse(response)

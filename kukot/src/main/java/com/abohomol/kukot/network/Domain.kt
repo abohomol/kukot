@@ -12,7 +12,7 @@ open class BaseResponse {
     var timestamp: Long = 0
 }
 
-class NotSuccessfulRequestException(private val base: BaseResponse) : Exception() {
+class KuCoinRequestError(private val base: BaseResponse) : Exception() {
 
     override val message: String?
         get() = "Code: ${base.code}, timestamp: ${base.timestamp}, message: ${base.msg}, comment: ${base.comment}"
