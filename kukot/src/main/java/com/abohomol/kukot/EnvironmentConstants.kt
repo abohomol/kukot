@@ -1,3 +1,4 @@
+@file:JvmName("EnvironmentConstants")
 package com.abohomol.kukot
 
 const val PRODUCTION_HOST = "https://api.kucoin.com"

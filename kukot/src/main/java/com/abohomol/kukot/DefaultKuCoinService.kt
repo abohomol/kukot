@@ -100,12 +100,20 @@ class DefaultKuCoinService(
         return tradingRepository.cancelAllOrders(symbol, OrderType.SELL)
     }
 
-    override fun getDealtOrders(type: OrderType, since: Long, before: Long, symbol: String?): Single<List<MergedDealtOrder>> {
-        return tradingRepository.getMergedDealtOrders(symbol, type, since, before)
+    override fun getDealtBuyOrders(since: Long, before: Long, symbol: String?): Single<List<MergedDealtOrder>> {
+        return tradingRepository.getMergedDealtOrders(symbol, OrderType.BUY, since, before)
     }
 
-    override fun getDealtOrders(symbol: String, type: OrderType): Single<List<SpecificDealtOrder>> {
-        return tradingRepository.getSpecificDealtOrders(symbol, type)
+    override fun getDealtSellOrders(since: Long, before: Long, symbol: String?): Single<List<MergedDealtOrder>> {
+        return tradingRepository.getMergedDealtOrders(symbol, OrderType.SELL, since, before)
+    }
+
+    override fun getDealtBuyOrders(symbol: String): Single<List<SpecificDealtOrder>> {
+        return tradingRepository.getSpecificDealtOrders(symbol, OrderType.BUY)
+    }
+
+    override fun getDealtSellOrders(symbol: String): Single<List<SpecificDealtOrder>> {
+        return tradingRepository.getSpecificDealtOrders(symbol, OrderType.SELL)
     }
 
     override fun getOrderDetails(orderOid: String, symbol: String, type: OrderType): Single<OrderDetails> {

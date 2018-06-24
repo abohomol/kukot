@@ -4,6 +4,8 @@ import com.abohomol.kukot.asset.RetrofitAssetRepository
 import com.abohomol.kukot.asset.AssetService
 import com.abohomol.kukot.currency.RetrofitCurrencyRepository
 import com.abohomol.kukot.currency.CurrencyService
+import com.abohomol.kukot.info.InfoService
+import com.abohomol.kukot.info.RetrofitInfoRepository
 import com.abohomol.kukot.language.RetrofitLanguageRepository
 import com.abohomol.kukot.language.LanguageService
 import com.abohomol.kukot.market.MarketService
@@ -56,6 +58,13 @@ class KuCoin {
                     assetRepository,
                     tradingRepository,
                     marketRepository)
+        }
+
+        @JvmStatic
+        fun createInfoService(host: String = PRODUCTION_HOST): KuCoinInfoService {
+            val serviceBuilder = RestServiceBuilder(host)
+            val service = serviceBuilder.build(InfoService::class.java)
+            return RetrofitInfoRepository(service)
         }
 
     }

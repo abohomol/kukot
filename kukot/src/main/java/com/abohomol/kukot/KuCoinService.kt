@@ -63,12 +63,13 @@ interface KuCoinService {
 
     fun cancelAllSellOrders(symbol: String): Completable
 
-    fun getDealtOrders(type: OrderType,
-                       since: Long,
-                       before: Long,
-                       symbol: String? = null): Single<List<MergedDealtOrder>>
+    fun getDealtBuyOrders(since: Long, before: Long, symbol: String? = null): Single<List<MergedDealtOrder>>
 
-    fun getDealtOrders(symbol: String, type: OrderType): Single<List<SpecificDealtOrder>>
+    fun getDealtSellOrders(since: Long, before: Long, symbol: String? = null): Single<List<MergedDealtOrder>>
+
+    fun getDealtSellOrders(symbol: String): Single<List<SpecificDealtOrder>>
+
+    fun getDealtBuyOrders(symbol: String): Single<List<SpecificDealtOrder>>
 
     fun getOrderDetails(orderOid: String, symbol: String, type: OrderType): Single<OrderDetails>
 
