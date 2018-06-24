@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.abohomol.kukot.KuCoin
-import com.abohomol.kukot.trading.model.OrderType
 import kotlinx.android.synthetic.main.activity_main.helloWorld
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun start() {
         val service = KuCoin.create(API_KEY, SECRET)
-        service.getActiveOrders("MOBI-BTC", OrderType.SELL)
+        service.getUserProfile()
                 .subscribe({
                                Log.e("KUCOIN", "Success $it")
                            }, {
