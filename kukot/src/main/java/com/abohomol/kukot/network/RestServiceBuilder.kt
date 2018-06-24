@@ -29,6 +29,6 @@ class RestServiceBuilder(host: String, interceptors: List<Interceptor> = listOf(
     fun <T> build(service: Class<T>): T = retrofit.create(service)
 
     companion object {
-        private const val TIMEOUT_MS = 2500L
+        private const val TIMEOUT_MS = 10000L
     }
 }
