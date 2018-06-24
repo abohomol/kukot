@@ -64,14 +64,13 @@ class RetrofitTradingRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun cancelAllOrders(symbol: String, type: OrderType): Completable {
+    fun cancelAllOrders(symbol: String, type: OrderType? = null): Completable {
         val endpoint = "/v1/order/cancel-all"
-        val query = "symbol=$symbol&type=${type.name}"
+        val orderTypeQ = if (type == null) "" else "&type=${type.name}"
+        val query = "symbol=$symbol$orderTypeQ"
         val headers = getHeaders(endpoint, query)
-        val queries = mapOf(
-                "symbol" to symbol,
-                "type" to type.name
-        )
+        val queries = mutableMapOf("symbol" to symbol)
+        type?.let { queries["type"] = type.name }
         return tradingService.cancelAllOrders(headers, endpoint, queries)
                 .doOnSuccess { onResponse(it) }
                 .toCompletable()

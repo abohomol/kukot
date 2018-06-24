@@ -36,7 +36,7 @@ class DefaultKuCoinService(
 
     override fun getCurrencies() = currencyRepository.getCurrencies()
 
-    override fun changeDefaultCurrency(currency: CurrencyCode) = currencyRepository.changeDefaultCurrency(currency)
+    override fun changeDefaultCurrency(currency: CurrencyCode) = currencyRepository.changeCurrency(currency)
 
     override fun getExchangeRates(vararg coins: CoinCode) = currencyRepository.getExchangeRates(coins.asList())
 
@@ -45,49 +45,70 @@ class DefaultKuCoinService(
     override fun withdrawalApply(coin: CoinCode,
                                  amount: Double,
                                  withdrawalAddress: String): Completable {
-        return assetRepository.withdrawalApply(coin, amount, withdrawalAddress)
+        return assetRepository.withdraw(coin, amount, withdrawalAddress)
     }
 
     override fun cancelWithdrawal(coin: CoinCode, transactionId: String): Completable {
         return assetRepository.cancelWithdrawal(coin, transactionId)
     }
 
-    override fun getDepositAndWithdrawalRecords(coin: CoinCode,
-                                                type: RecordType,
-                                                status: RecordStatus,
-                                                page: Int): Single<List<Record>> {
-        return assetRepository.getDepositAndWithdrawalRecords(coin, type, status, page)
+    override fun getDepositRecords(coin: CoinCode,
+                                   status: RecordStatus,
+                                   page: Int): Single<List<Record>> {
+        return assetRepository.getDepositAndWithdrawalRecords(coin, RecordType.DEPOSIT, status, page)
+    }
+
+    override fun getWithdrawalRecords(coin: CoinCode,
+                                   status: RecordStatus,
+                                   page: Int): Single<List<Record>> {
+        return assetRepository.getDepositAndWithdrawalRecords(coin, RecordType.WITHDRAW, status, page)
     }
 
     override fun getCoinBalance(coin: CoinCode) = assetRepository.getCoinBalance(coin)
 
-    override fun getCoinBalanceByPage(coin: CoinCode,
-                                      page: Int,
-                                      limit: Int): Single<List<CoinBalance>> {
-        return assetRepository.getCoinBalanceByPage(coin, page, limit)
+    override fun getCoinBalances(page: Int, limit: Int): Single<List<CoinBalance>> {
+        return assetRepository.getCoinBalanceByPage(page, limit)
     }
 
-    override fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<OrderId> {
-        return tradingRepository.createOrder(symbol, type, price, amount)
+    override fun createBuyOrder(symbol: String, price: Double, amount: Double): Single<OrderId> {
+        return tradingRepository.createOrder(symbol, OrderType.BUY, price, amount)
     }
 
-    override fun getActiveOrders(symbol: String, type: OrderType): Single<List<Order>> {
-        return tradingRepository.getActiveOrders(symbol, type)
+    override fun createSellOrder(symbol: String, price: Double, amount: Double): Single<OrderId> {
+        return tradingRepository.createOrder(symbol, OrderType.SELL, price, amount)
     }
 
-    override fun cancelOrder(symbol: String, type: OrderType, orderOid: String): Completable {
-        return tradingRepository.cancelOrder(symbol, type, orderOid)
+    override fun getActiveBuyOrders(symbol: String): Single<List<Order>> {
+        return tradingRepository.getActiveOrders(symbol, OrderType.BUY)
     }
 
-    override fun cancelAllOrders(symbol: String, type: OrderType): Completable {
-        return tradingRepository.cancelAllOrders(symbol, type)
+    override fun getActiveSellOrders(symbol: String): Single<List<Order>> {
+        return tradingRepository.getActiveOrders(symbol, OrderType.SELL)
     }
 
-    override fun getMergedDealtOrders(type: OrderType, limit: Int, page: Int, since: Long, before: Long, symbol: String?): Single<List<MergedDealtOrder>> {
+    override fun cancelBuyOrder(symbol: String, orderOid: String): Completable {
+        return tradingRepository.cancelOrder(symbol, OrderType.BUY, orderOid)
+    }
+
+    override fun cancelSellOrder(symbol: String, orderOid: String): Completable {
+        return tradingRepository.cancelOrder(symbol, OrderType.SELL, orderOid)
+    }
+
+    override fun cancelAllOrders(symbol: String) = tradingRepository.cancelAllOrders(symbol)
+
+    override fun cancelAllBuyOrders(symbol: String): Completable {
+        return tradingRepository.cancelAllOrders(symbol, OrderType.BUY)
+    }
+
+    override fun cancelAllSellOrders(symbol: String): Completable {
+        return tradingRepository.cancelAllOrders(symbol, OrderType.SELL)
+    }
+
+    override fun getDealtOrders(type: OrderType, limit: Int, page: Int, since: Long, before: Long, symbol: String?): Single<List<MergedDealtOrder>> {
         return tradingRepository.getMergedDealtOrders(symbol, type, limit, page, since, before)
     }
 
-    override fun getSpecificDealtOrders(symbol: String, type: OrderType, limit: Int, page: Int): Single<List<SpecificDealtOrder>> {
+    override fun getDealtOrders(symbol: String, type: OrderType, limit: Int, page: Int): Single<List<SpecificDealtOrder>> {
         return tradingRepository.getSpecificDealtOrders(symbol, type, limit, page)
     }
 

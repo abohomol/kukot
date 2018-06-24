@@ -4,7 +4,6 @@ import com.abohomol.kukot.asset.model.CoinBalance
 import com.abohomol.kukot.asset.model.DepositAddress
 import com.abohomol.kukot.asset.model.Record
 import com.abohomol.kukot.asset.model.RecordStatus
-import com.abohomol.kukot.asset.model.RecordType
 import com.abohomol.kukot.currency.Currency
 import com.abohomol.kukot.currency.ExchangeRate
 import com.abohomol.kukot.language.UserLanguage
@@ -38,31 +37,43 @@ interface KuCoinService {
 
     fun cancelWithdrawal(coin: CoinCode, transactionId: String): Completable
 
-    fun getDepositAndWithdrawalRecords(coin: CoinCode, type: RecordType, status: RecordStatus, page: Int = 0): Single<List<Record>>
+    fun getDepositRecords(coin: CoinCode, status: RecordStatus, page: Int = 0): Single<List<Record>>
+
+    fun getWithdrawalRecords(coin: CoinCode, status: RecordStatus, page: Int = 0): Single<List<Record>>
 
     fun getCoinBalance(coin: CoinCode): Single<CoinBalance>
 
-    fun getCoinBalanceByPage(coin: CoinCode, page: Int, limit: Int): Single<List<CoinBalance>>
+    fun getCoinBalances(page: Int, limit: Int): Single<List<CoinBalance>>
 
-    fun createOrder(symbol: String, type: OrderType, price: Double, amount: Double): Single<OrderId>
+    fun createSellOrder(symbol: String, price: Double, amount: Double): Single<OrderId>
 
-    fun getActiveOrders(symbol: String, type: OrderType): Single<List<Order>>
+    fun createBuyOrder(symbol: String, price: Double, amount: Double): Single<OrderId>
 
-    fun cancelOrder(symbol: String, type: OrderType, orderOid: String): Completable
+    fun getActiveBuyOrders(symbol: String): Single<List<Order>>
 
-    fun cancelAllOrders(symbol: String, type: OrderType): Completable
+    fun getActiveSellOrders(symbol: String): Single<List<Order>>
 
-    fun getMergedDealtOrders(type: OrderType,
-                             limit: Int,
-                             page: Int,
-                             since: Long,
-                             before: Long,
-                             symbol: String? = null): Single<List<MergedDealtOrder>>
+    fun cancelBuyOrder(symbol: String, orderOid: String): Completable
 
-    fun getSpecificDealtOrders(symbol: String,
-                               type: OrderType,
-                               limit: Int,
-                               page: Int): Single<List<SpecificDealtOrder>>
+    fun cancelSellOrder(symbol: String, orderOid: String): Completable
+
+    fun cancelAllOrders(symbol: String): Completable
+
+    fun cancelAllBuyOrders(symbol: String): Completable
+
+    fun cancelAllSellOrders(symbol: String): Completable
+
+    fun getDealtOrders(type: OrderType,
+                       limit: Int,
+                       page: Int,
+                       since: Long,
+                       before: Long,
+                       symbol: String? = null): Single<List<MergedDealtOrder>>
+
+    fun getDealtOrders(symbol: String,
+                       type: OrderType,
+                       limit: Int,
+                       page: Int): Single<List<SpecificDealtOrder>>
 
     fun getOrderDetails(orderOid: String,
                         symbol: String,

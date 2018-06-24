@@ -1,6 +1,7 @@
 package com.abohomol.kukot.language
 
 import com.abohomol.kukot.network.BaseRepository
+import com.abohomol.kukot.network.LanguageCode
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,9 +20,9 @@ class RetrofitLanguageRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun changeLanguage(languageCode: String): Completable {
-        val headers = getHeaders(ENDPOINT, "lang=$languageCode")
-        return languageService.changeLanguage(headers, ENDPOINT, languageCode)
+    fun changeLanguage(language: LanguageCode): Completable {
+        val headers = getHeaders(ENDPOINT, "lang=$language")
+        return languageService.changeLanguage(headers, ENDPOINT, language)
                 .doOnSuccess { onResponse(it) }
                 .toCompletable()
                 .subscribeOn(Schedulers.io())

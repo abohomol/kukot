@@ -30,9 +30,9 @@ class RetrofitCurrencyRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun changeDefaultCurrency(currencyCode: CurrencyCode): Completable {
-        val headers = getHeaders(ENDPOINT,"currency=$currencyCode")
-        return currencyService.changeCurrency(headers, ENDPOINT, currencyCode)
+    fun changeCurrency(currency: CurrencyCode): Completable {
+        val headers = getHeaders(ENDPOINT,"currency=$currency")
+        return currencyService.changeCurrency(headers, ENDPOINT, currency)
                 .doOnSuccess { onResponse(it) }
                 .toCompletable()
                 .subscribeOn(Schedulers.io())

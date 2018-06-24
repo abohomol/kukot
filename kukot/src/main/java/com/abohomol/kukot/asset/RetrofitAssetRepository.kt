@@ -27,16 +27,16 @@ class RetrofitAssetRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun withdrawalApply(coin: CoinCode,
-                                 amount: Double,
-                                 withdrawalAddress: String): Completable {
+    fun withdraw(coin: CoinCode,
+                 amount: Double,
+                 withdrawalAddress: String): Completable {
         val endpoint = "/v1/account/$coin/withdraw/apply"
         val query = "address=$withdrawalAddress&amount=$amount&coin=$coin"
         val headers = getHeaders(endpoint, query)
         val queries = mapOf(
-            "address" to withdrawalAddress,
-            "amount" to amount.toString(),
-            "coin" to coin
+                "address" to withdrawalAddress,
+                "amount" to amount.toString(),
+                "coin" to coin
         )
         return assetService.createWithdrawalApply(headers, endpoint, queries)
                 .doOnSuccess { onResponse(it) }
@@ -56,9 +56,9 @@ class RetrofitAssetRepository(
     }
 
     fun getDepositAndWithdrawalRecords(coin: CoinCode,
-                                                type: RecordType,
-                                                status: RecordStatus,
-                                                page: Int): Single<List<Record>> {
+                                       type: RecordType,
+                                       status: RecordStatus,
+                                       page: Int): Single<List<Record>> {
         val endpoint = "/v1/account/$coin/wallet/records"
         val query = "page=$page&status=${status.name}&type=${type.name}"
         val headers = getHeaders(endpoint, query)
@@ -84,7 +84,7 @@ class RetrofitAssetRepository(
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getCoinBalanceByPage(coin: CoinCode, page: Int, limit: Int): Single<List<CoinBalance>> {
+    fun getCoinBalanceByPage(page: Int, limit: Int): Single<List<CoinBalance>> {
         val endpoint = "/v1/account/balances"
         val headers = getHeaders(endpoint, "limit=$limit&page=$page")
         val queries = mapOf(
