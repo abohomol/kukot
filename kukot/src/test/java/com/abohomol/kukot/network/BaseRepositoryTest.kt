@@ -1,6 +1,6 @@
 package com.abohomol.kukot.network
 
-import junit.framework.Assert
+import org.junit.Assert
 import org.junit.Test
 
 class BaseRepositoryTest {
