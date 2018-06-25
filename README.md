@@ -1,7 +1,7 @@
 ![Logo](logo/logo_small.png)
 ============
 
-Kukot is Android Kotlin SDK for [KuCoin](https://www.kucoin.com/) cryptocurrency exchange.
+Kukot is Android Kotlin SDK for [KuCoin](https://www.kucoin.com/) crypto-currency exchange.
 
 [![Build Status](https://travis-ci.org/abohomol/kukot.svg?branch=master)](https://travis-ci.org/abohomol/kukot) [![](https://jitpack.io/v/abohomol/kukot.svg)](https://jitpack.io/#abohomol/kukot) [![Apache 2.0 License](https://img.shields.io/hexpm/l/plug.svg) ](https://github.com/abohomol/kukot/blob/master/LICENSE)
 
@@ -31,9 +31,55 @@ The instance of `KuCoinService` could be obtained in the following way:
 
     val infoService = KuCoin.createInfoService()
 
+### Examples
+
+Below are few examples of SDK usage which can give a general idea of API capabilities. For more information and detailed documentation see `KuCoinService` and `KuCoinInfoService` interfaces.
+
+#### Get user profile
+
+    service.getUserProfile()
+            .subscribe { profile -> Log.d("Kukot", "Profile for user with email ${profile.email} retrieved!") }
+
+#### Change language
+
+    service.changeLanguage("en_US")
+            .subscribe { Log.d("Kukot", "Language changed!") }
+
+#### Change currency
+
+    service.changeCurrency("EUR")
+            .subscribe { Log.d("Kukot", "Currency changed!") }
+
+#### Get deposit address
+
+    service.getCoinDepositAddress("KCS")
+            .subscribe { depositAddress -> Log.d("Kukot", "Deposit address: ${depositAddress.address}") }
+
+#### Withdraw coin
+
+    service.withdrawCoin("KCS", 100.0, address)
+            .subscribe { Log.d("Kukot", "Withdraw request created!") }
+
+#### Get coin balance
+
+    service.getCoinBalance("KCS")
+            .subscribe { coinBalance -> Log.d("Kukot", "You have ${coinBalance.balance} KCS") }
+
+#### Create buy order
+
+    val price = 3.5
+    val amount = 100.0
+    service.createBuyOrder("KCS-BTC", price, amount)
+            .subscribe { orderId -> Log.d("Kukot", "Buy order with id $orderId created!") }
+
+#### Get list of active buy orders
+
+    service.getActiveBuyOrders("KCS-BTC")
+            .subscribe { orders -> Log.d("Kukot", "Found ${orders.size} active buy orders") }
+
 ### Multiple hosts support
 
-By defult Kukot uses production backend enviroment under the hood but since testing and debugging against production host might not always be a good idea, Kukot provides a way to specify host manually or use one of constants defined in `EnvironmentConstants` file and visible in the global namespace:
+By default Kukot uses production backend environment under the hood but since testing and debugging against production host might not always be a good idea, Kukot provides a way to specify host manually or use one of constants defined in `EnvironmentConstants` file and visible in the global namespace:
 
     val apiKey = "<your-api-key>"
     val secret = "<your-secret>"
@@ -52,11 +98,10 @@ Since Kukot uses [RxJava2](https://github.com/ReactiveX/RxJava) as a part of its
     val service = KuCoin.create(apiKey, secret)
     service.getUserProfile() // background thread
                 .subscribe({
-                    helloWorld.text = it.email // main thread
+                    textView.text = it.email // main thread
                 }, {
                     Log.e(TAG, "Unable to acquire user profile", it) // main thread
                 })
-
 
 ### Testing
 
